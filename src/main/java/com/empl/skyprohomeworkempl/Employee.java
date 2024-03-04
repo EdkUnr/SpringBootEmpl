@@ -2,7 +2,8 @@ package com.empl.skyprohomeworkempl;
 
 import java.util.Objects;
 
-public class Employee {private String firstName;
+public class Employee {
+    private String firstName;
     private String lastName;
     private double salary;
     private int department;
@@ -13,9 +14,6 @@ public class Employee {private String firstName;
         this.lastName = parts[1];
         this.salary = salary;
         this.department = department;
-    }
-
-    public Employee(String firstName, String lastName) {
     }
 
     public String getFirstName() {
