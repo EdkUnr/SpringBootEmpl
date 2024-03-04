@@ -3,10 +3,37 @@ package com.empl.skyprohomeworkempl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
+    public Employee findEmployeeWithMaxSalary(int departmentId) {
+        return employees.stream()
+                .filter(employee -> employee.getDepartment() == departmentId)
+                .max(Comparator.comparingDouble(Employee::getSalary))
+                .orElseThrow(() -> new RuntimeException("Employee not found."));
+    }
+
+    public Employee findEmployeeWithMinSalary(int departmentId) {
+        return employees.stream()
+                .filter(employee -> employee.getDepartment() == departmentId)
+                .min(Comparator.comparingDouble(Employee::getSalary))
+                .orElseThrow(() -> new RuntimeException("Employee not found."));
+    }
+
+    public List<Employee> findAllEmployeesByDepartment(int departmentId) {
+        return employees.stream()
+                .filter(employee -> employee.getDepartment() == departmentId)
+                .collect(Collectors.toList());
+    }
+
+    public Map<Integer, List<Employee>> findAllEmployeesGroupedByDepartment() {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
     private static final int MAX_EMPLOYEES = 10;
     private List<Employee> employees;
 
